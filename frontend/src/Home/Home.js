@@ -5,7 +5,7 @@ import JoinGame from "./JoinGame"
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
-function Home(socket) {
+function Home({socket}) {
     const [code, setCode] = useState('');
     const navigate = useNavigate();
 
