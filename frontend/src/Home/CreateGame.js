@@ -7,6 +7,7 @@ function CreateGame(socket) {
         return () => {
         }
     }, [])
+
     return <Button variant="contained">Create Game</Button>;
 }
 
