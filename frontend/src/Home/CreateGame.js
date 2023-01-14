@@ -1,15 +1,12 @@
 import Button from "@mui/material/Button";
-const { io } = require("socket.io-client");
+import { useEffect } from "react"
 
-const socket = io();
-
-initializeConnection = () => {
-    socket.emit("connect", (s) => {
-        
-    })
-}
-
-function CreateGame() {
+function CreateGame(socket) {
+    useEffect(() => {
+        socket.emit("create", socket.id);
+        return () => {
+        }
+    }, [])
     return <Button variant="contained">Create Game</Button>;
 }
 
