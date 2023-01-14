@@ -4,7 +4,12 @@ const app = express()
 const PORT = 8080
 const lobbyManager = new LobbyManager();
 const server = require('http').createServer();
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
 
 
 io.on('connection', (socket) => {
@@ -23,6 +28,7 @@ io.on('connection', (socket) => {
     socket.on('create', async (socketId) => {
         const lobbyCode = lobbyManager.createLobby(socketId, 2)
         socket.emit('roomCreation', lobbyCode)
+        console.log(`room created with ${lobbyCode} for ${socketId}`)
     })
 
     socket.on('wordCompleted', async (someObject) => {
