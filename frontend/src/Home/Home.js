@@ -18,6 +18,8 @@ function Home({socket}) {
     }, [])
 
     useEffect(() => {
+        if (code === "") return
+
         navigate(`/lobby/${code}`)
         return () => {
         }
