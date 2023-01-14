@@ -29,7 +29,6 @@ class LobbyManager {
         return lobbyCode
     }
 
-    
     /**
      * Adds a player to a lobby identified by the lobbyCode. Once the number of players meets the lobby limit,
      * the game will start.
@@ -43,6 +42,7 @@ class LobbyManager {
         const lobby = this.lobbies.get(lobbyCode) 
         lobby.addPlayer(player)
 
+        console.log("Trying to start lobby game")
         if (lobby.canStartGame()) {
             // Always try to start game, when someone joins the lobby
             return this.startLobbyGame(lobby)
@@ -55,6 +55,14 @@ class LobbyManager {
         const lobby = this.lobbies.get(lobbyCode)
         return true
     }
+
+    getLobbyState(lobbyCode) {
+        const lobby = this.lobbies.get(lobbyCode)
+        return lobby.gameWords
+
+    }
+
+    
   }
 
   module.exports = LobbyManager

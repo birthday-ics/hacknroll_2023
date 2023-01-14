@@ -4,14 +4,12 @@ class Lobby {
     // playerID <-> WebSocketClient
     players = new Map()
     gameWords = []
-    clearedWords = []
 
     constructor(lobbyCode, lobbySize) {
         this.lobbyCode = lobbyCode
         this.lobbySize = lobbySize
     }
 
-    // TODO: Generate random words
     generateInitialGameWords() {
         const wordList = []
         for (let i = 0; i < 24; i++) {
@@ -29,12 +27,14 @@ class Lobby {
             return []
         }
 
+        console.log("Starting game")
         const generatedGameWords = this.generateInitialGameWords()
         this.gameWords = generatedGameWords
         return generatedGameWords
     }
 
     canStartGame() {
+        console.log(`checking can start game with ${this.players.size} players`)
         return this.players.size == this.lobbySize
     }
 
