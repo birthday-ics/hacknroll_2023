@@ -1,3 +1,5 @@
+const randomWord = require('random-word')
+
 class Lobby {
     // playerID <-> WebSocketClient
     players = new Map()
@@ -10,8 +12,12 @@ class Lobby {
     }
 
     // TODO: Generate random words
-    generateGameWords() {
-        return ["hello", "world", "ben", "royce", "hans"]
+    generateInitialGameWords() {
+        const wordList = []
+        for (let i = 0; i < 24; i++) {
+            wordList.push(randomWord());
+        }
+        return wordList
     }
 
     startGame() {
@@ -20,7 +26,7 @@ class Lobby {
             return []
         }
 
-        const generatedGameWords = this.generateGameWords()
+        const generatedGameWords = this.generateInitialGameWords()
         this.gameWords = generatedGameWords
         return generatedGameWords
     }

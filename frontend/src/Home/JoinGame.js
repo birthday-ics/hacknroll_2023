@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack"
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 
-function JoinGame() {
+function JoinGame({socket}) {
     const [input, setInput] = useState('');
     const navigate = useNavigate();
     const roomIdInput = useRef(null);
@@ -25,6 +25,7 @@ function JoinGame() {
     })
 
     const handleGo = () => {
+        socket.emit("join", input, socket.id);
         navigate(`/lobby/${input}`)
     }
 

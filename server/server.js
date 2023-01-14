@@ -20,8 +20,9 @@ io.on('connection', (socket) => {
         console.log('user disconnected')
     })
 
-    socket.on('join', async (room) => {
+    socket.on('join', async (room, socketId) => {
         await socket.join(`${room}`)
+        lobbyManager.joinLobby(room, socketId);
         console.log(`Client joined room ${room}`)
     })
 
