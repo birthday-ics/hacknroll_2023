@@ -50,6 +50,11 @@ class LobbyManager {
 
         return []
     }
+
+    tryCompletedWord(socketID, completedWord, lobbyCode) {
+        const lobby = this.lobbies.get(lobbyCode)
+        return true
+    }
   }
 
   module.exports = LobbyManager

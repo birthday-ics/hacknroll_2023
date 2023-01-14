@@ -34,13 +34,12 @@ io.on('connection', (socket) => {
 
     socket.on('wordCompleted', async (socketId, completedWord, lobbyCode) => {
         console.log(`lobby: ${lobbyCode} word completed: ${completedWord}`)
-        // const isSuccessful = lobbyManager.tryCompletedWord(socketId, completedWord)
-        // if (isSuccessful) {
-        //     // Tell client that it's successful
-        // }
+        const isSuccessful = lobbyManager.tryCompletedWord(socketId, completedWord, lobbyCode)
+        if (isSuccessful) {
+            // Tell client that it's successful
+        }
 
-        // // Update room state
-        // const lobbyState = lobbyManager.getLobbyState(lobbyCode)
+        // Update room state
         const lobbyState = [
             {word: "fluffy", capturedBy: ""}, {word: "boy", capturedBy: ""}, {word: "text", capturedBy: ""}, {word: "example", capturedBy: ""},
             {word: "fluffy1", capturedBy: "test"}, {word: "boy1", capturedBy: ""}, {word: "text1", capturedBy: ""}, {word: "example1", capturedBy: ""},
