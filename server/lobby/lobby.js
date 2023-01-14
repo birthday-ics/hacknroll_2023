@@ -15,7 +15,10 @@ class Lobby {
     generateInitialGameWords() {
         const wordList = []
         for (let i = 0; i < 24; i++) {
-            wordList.push(randomWord());
+            wordList.push({
+                word: randomWord(),
+                capturedBy: ""
+            });
         }
         return wordList
     }
