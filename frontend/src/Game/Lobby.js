@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 
 const userID = "test"
 
-const GameGrid = ({ words }) => {
+const GameGrid = ({ words, socket }) => {
   const getCardColor = (wordObj) => {
     const capturedBy = wordObj['capturedBy']
 
@@ -64,7 +64,7 @@ const AnswerInputBox = () => {
   )
 }
 
-export default function Lobby() {
+export default function Lobby({socket}) {
   const [words, setWords] = useState([
     {word: "fluffy", capturedBy: ""}, {word: "boy", capturedBy: ""}, {word: "text", capturedBy: ""}, {word: "example", capturedBy: ""},
     {word: "fluffy1", capturedBy: "test"}, {word: "boy1", capturedBy: ""}, {word: "text1", capturedBy: ""}, {word: "example1", capturedBy: ""},
@@ -78,7 +78,7 @@ export default function Lobby() {
 
   return (
     <Container>
-      <GameGrid words={words}/>
+      <GameGrid words={words} socket={sockets}/>
       <AnswerInputBox/>
     </Container>
   )
