@@ -45,7 +45,7 @@ const AnswerInputBox = () => {
 
   const handleKeyDown = (event) => {
     // TODO: Send word through socket to server here, get response and update the GameGrid
-    if (event.key !== 'Enter') {
+    if (event.key === 'Enter') {
       alert(answer);
     }
   }
