@@ -31,10 +31,25 @@ io.on('connection', (socket) => {
         console.log(`room created with ${lobbyCode} for ${socketId}`)
     })
 
-    socket.on('wordCompleted', async (someObject) => {
-        // TODO: update lobby
-        const {word, user} = JSON.parse(someObject)
-        console.log('Updated lobby')
+    socket.on('wordCompleted', async (socketId, completedWord, lobbyCode) => {
+        console.log(`lobby: ${lobbyCode} word completed: ${completedWord}`)
+        // const isSuccessful = lobbyManager.tryCompletedWord(socketId, completedWord)
+        // if (isSuccessful) {
+        //     // Tell client that it's successful
+        // }
+
+        // // Update room state
+        // const lobbyState = lobbyManager.getLobbyState(lobbyCode)
+        const lobbyState = [
+            {word: "fluffy", capturedBy: ""}, {word: "boy", capturedBy: ""}, {word: "text", capturedBy: ""}, {word: "example", capturedBy: ""},
+            {word: "fluffy1", capturedBy: "test"}, {word: "boy1", capturedBy: ""}, {word: "text1", capturedBy: ""}, {word: "example1", capturedBy: ""},
+            {word: "fluffy2", capturedBy: "otherID"}, {word: "boy2", capturedBy: ""}, {word: "text2", capturedBy: ""}, {word: "example2", capturedBy: ""},
+            {word: "fluffy3", capturedBy: ""}, {word: "boy3", capturedBy: ""}, {word: "text3", capturedBy: ""}, {word: "example3", capturedBy: ""},
+            {word: "fluffy4", capturedBy: ""}, {word: "boy4", capturedBy: ""}, {word: "text4", capturedBy: ""}, {word: "example4", capturedBy: ""},
+            {word: "fluffy5", capturedBy: "test"}, {word: "boy5", capturedBy: ""}, {word: "text5", capturedBy: ""}, {word: "example5", capturedBy: ""},
+        ]
+        socket.emit(`updateState`, lobbyState)
+        
     })
 
     socket.on('leave', async ({ room }) => {

@@ -1,5 +1,4 @@
 import Button from "@mui/material/Button";
-import { useEffect } from "react"
 
 function CreateGame({socket}) {
     const handleCreateGame = () => {

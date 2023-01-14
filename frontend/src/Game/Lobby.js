@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextField from "@mui/material/TextField"
 import Container from "@mui/material/Container"
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-
-const userID = "test"
 
 const GameGrid = ({ words, socket }) => {
   const getCardColor = (wordObj) => {
@@ -16,7 +15,7 @@ const GameGrid = ({ words, socket }) => {
       return {}
     }
 
-    return capturedBy === userID
+    return capturedBy === socket.id
       ? {backgroundColor:"#7FFFD4"}
       : {backgroundColor:"#A52A2A"}
   }
@@ -36,7 +35,7 @@ const GameGrid = ({ words, socket }) => {
   )
 }
 
-const AnswerInputBox = () => {
+const AnswerInputBox = ({ socket, lobbyCode }) => {
   const [answer, setAnswer] = React.useState('');
 
   const handleChange = (event) => {
@@ -44,9 +43,8 @@ const AnswerInputBox = () => {
   };
 
   const handleKeyDown = (event) => {
-    // TODO: Send word through socket to server here, get response and update the GameGrid
     if (event.key === 'Enter') {
-      alert(answer);
+      socket.emit("wordCompleted", socket.id, answer, lobbyCode)
     }
   }
 
@@ -65,6 +63,7 @@ const AnswerInputBox = () => {
 }
 
 export default function Lobby({socket}) {
+  const { lobbyCode } = useParams()
   const [words, setWords] = useState([
     {word: "fluffy", capturedBy: ""}, {word: "boy", capturedBy: ""}, {word: "text", capturedBy: ""}, {word: "example", capturedBy: ""},
     {word: "fluffy1", capturedBy: "test"}, {word: "boy1", capturedBy: ""}, {word: "text1", capturedBy: ""}, {word: "example1", capturedBy: ""},
@@ -75,11 +74,17 @@ export default function Lobby({socket}) {
   ])
 
   // TODO: Setup socket listener to update words
+  useEffect(() => {
+    socket.on(`updateState`, (data) => {
+      console.log("updateState: " , data)
+      setWords(data)
+    })
+  }, [])
 
   return (
     <Container>
-      <GameGrid words={words} socket={sockets}/>
-      <AnswerInputBox/>
+      <GameGrid words={words} socket={socket} lobbyCode={lobbyCode}/>
+      <AnswerInputBox socket={socket} lobbyCode={lobbyCode}/>
     </Container>
   )
 }
