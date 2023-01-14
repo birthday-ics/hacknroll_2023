@@ -20,6 +20,11 @@ io.on('connection', (socket) => {
         console.log(`Client joined room ${room}`)
     })
 
+    socket.on('create', async (socketId) => {
+        const lobbyCode = lobbyManager.createLobby(socketId, 2)
+        socket.emit('roomCreation', lobbyCode)
+    })
+
     socket.on('wordCompleted', async (someObject) => {
         // TODO: update lobby
         const {word, user} = JSON.parse(someObject)
