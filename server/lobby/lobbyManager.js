@@ -53,13 +53,12 @@ class LobbyManager {
 
     tryCompletedWord(socketID, completedWord, lobbyCode) {
         const lobby = this.lobbies.get(lobbyCode)
-        return true
+        return lobby.tryToCompleteWord(socketID, completedWord)
     }
 
     getLobbyState(lobbyCode) {
         const lobby = this.lobbies.get(lobbyCode)
         return lobby.gameWords
-
     }
 
     

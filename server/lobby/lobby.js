@@ -47,6 +47,22 @@ class Lobby {
         this.players.set(player, player)
         return
     }
+
+    tryToCompleteWord(player, completedWord) {
+        console.log(`player: ${player} trying to complete word: ${completedWord}`)
+
+        for (let i = 0; i < this.gameWords.length; i++) {
+            const currWord = this.gameWords[i]['word']
+            if (currWord !== completedWord) {
+                continue
+            }
+            
+            this.gameWords[i]['capturedBy'] = player
+            return true
+        }
+
+        return false
+    }
 }
 
 module.exports = Lobby
