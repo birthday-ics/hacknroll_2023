@@ -34,7 +34,7 @@ function Home({socket}) {
             paddingRight="25vw"
         >
             <CreateGame socket={socket}/>
-            <JoinGame />
+            <JoinGame socket={socket}/>
         </Stack>
     );
 }
